@@ -1,20 +1,19 @@
 ﻿using System.Numerics;
 using ImGuiNET;
 using UIFramework.Core;
+using UIFramwork.Core;
 
 namespace UIFramwork.Layers;
 
 public record DockModel(bool DockingEnabled);
 
-public class DockLayer : AppLayer<DockModel>
+public class AppDocking : View<DockModel>
 {
-    public DockLayer(DockModel model) : base(model)
-    {
-    }
+    public AppDocking(DockModel model) : base(model) { }
 
-    public override UpdateFnc<DockModel> UpdateFunc => (model, msg, dt) => (model, Enumerable.Empty<object>());
+    protected override UpdateFnc<DockModel> UpdateFunc => (model, msg, dt) => (model, Enumerable.Empty<object>());
 
-    public override RenderFnc<DockModel> RendeFunc => (model, dt) =>
+    protected override RenderFnc<DockModel> RenderFunc => (model, dt) =>
     {
         DockSpace();
         return UI.UI.Spacer();

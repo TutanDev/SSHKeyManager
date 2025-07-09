@@ -1,23 +1,19 @@
 ﻿
+using UIFramwork.Core;
 using UIFramwork.UI;
 
 namespace SampleApp;
-
-using ImGuiNET;
-using UIFramework.Core;
 
 public record IncrementMsg();
 public record DecrementMsg();
 
 public record CounterModel(int Count);
 
-public class CounterApp : AppLayer<CounterModel>
+public class CounterView : View<CounterModel>
 {
-    public CounterApp(CounterModel model) : base(model)
-    {
-    }
+    public CounterView(CounterModel model) : base(model) { }
 
-    public override UpdateFnc<CounterModel> UpdateFunc => (model, msg, dt) =>
+    protected override UpdateFnc<CounterModel> UpdateFunc => (model, msg, dt) =>
     {
         return msg switch
         {
@@ -27,7 +23,7 @@ public class CounterApp : AppLayer<CounterModel>
         };
     };
     
-    public override RenderFnc<CounterModel> RendeFunc => (model, dt) => 
+    protected override RenderFnc<CounterModel> RenderFunc => (model, dt) => 
             UI.Window("Counter Sample App",
             UI.Vertical(
                 UI.Label($"Count: {model.Count}"),

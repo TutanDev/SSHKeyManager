@@ -1,4 +1,5 @@
-﻿using UIFramwork.Layers;
+﻿using UIFramwork.Core;
+using UIFramwork.Layers;
 
 namespace UIFramework.Core;
 
@@ -11,13 +12,15 @@ using Silk.NET.Windowing;
 
 public class AppRunner
 {
+    
     private readonly IWindow _window;
     private IInputContext _inputContext;
+    
     private GL _gl;
+    
     private ImGuiController _imgui;
     
-    private readonly DockLayer _dockLayer;
-    private AppLayer _sampleLayer;
+    private Application _app;
 
     public AppRunner(IWindow window)
     {
@@ -27,13 +30,11 @@ public class AppRunner
         _window.Update += OnUpdate;
         _window.Render += OnRender;
         _window.Closing += OnClose;
-
-        _dockLayer = new DockLayer(new DockModel(true));
     }
 
-    public void Run(AppLayer app)
+    public void Run(Application app)
     {
-        _sampleLayer = app;
+        _app = app;
         _window.Run();
     }
 
@@ -51,18 +52,15 @@ public class AppRunner
     private void OnUpdate(double deltaTime)
     {
         _imgui.Update((float)deltaTime);
-
-        _dockLayer.Update((float)deltaTime);
-        _sampleLayer.Update((float)deltaTime); 
+        _app.Update((float)deltaTime); 
     }
 
     private void OnRender(double deltaTime)
     {
         _gl.Clear((uint)ClearBufferMask.ColorBufferBit);
         _gl.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-
-        _dockLayer.Render((float)deltaTime);
-        _sampleLayer.Render((float)deltaTime);
+        
+        _app.Render((float)deltaTime);
 
         _imgui.Render();
     }

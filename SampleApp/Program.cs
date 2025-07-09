@@ -1,8 +1,8 @@
-﻿using ImGuiNET;
-using SampleApp;
+﻿using SampleApp;
 using Silk.NET.Maths;
 using Silk.NET.Windowing;
 using UIFramework.Core;
+using UIFramwork.Core;
 
 public class Program 
 {
@@ -22,9 +22,12 @@ public class Program
 
         var window = Window.Create(options);
         var runner = new AppRunner(window);
-
-        var CounterLayer = new CounterApp(new CounterModel(0));
-        runner.Run(CounterLayer);
+        
+        var app = new Application();
+        var counterView = new CounterView(new CounterModel(0));
+        app.AddView(counterView);
+        
+        runner.Run(app);
 
         Environment.Exit(0);
     }

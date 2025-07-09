@@ -17,8 +17,4 @@
       <ProjectReference Include="..\ImGuiSupport\ImGuiSupport.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Layers\" />
-    </ItemGroup>
-
 </Project>
